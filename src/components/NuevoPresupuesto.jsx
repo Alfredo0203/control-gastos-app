@@ -1,18 +1,20 @@
 import React, { useState } from 'react'
 import Mensaje from './Mensaje';
 
-const NuevoPresupuesto = ({presupuesto, setPresupuesto}) => {
+const NuevoPresupuesto = ({presupuesto, setPresupuesto, isvalidPresupuesto, setIsvalidPresupuesto}) => {
 
     const [mensaje, setMensaje] = useState('');
 
+
     const handlePresupuesto = (e) => {
         e.preventDefault();
-        if(!Number(presupuesto) || Number(presupuesto) < 0) {
+        if(!presupuesto || Number(presupuesto) < 0) {
             setMensaje('No es un presupuesto valido')
+            return
         }
-        else {
-
-        }
+        
+        setMensaje('')
+        setIsvalidPresupuesto(true)
         
     }
   return (
@@ -23,9 +25,9 @@ const NuevoPresupuesto = ({presupuesto, setPresupuesto}) => {
             <div className="campo">
                 <label htmlFor="">Definir presupuesto</label>
 
-                <input type="text" value={presupuesto}
+                <input type="number" value={presupuesto}
                 className='nuevo-presupuesto' placeholder='Agrega tu presupuesto'
-                onChange={(e) => setPresupuesto(e.target.value)}
+                onChange={(e) => setPresupuesto(Number(e.target.value))}
                 />
             </div>
 
