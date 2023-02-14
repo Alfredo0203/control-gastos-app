@@ -10,10 +10,15 @@ function App() {
   const [presupuesto, setPresupuesto] = useState(0);
 
   const [modal, setModal] = useState(false);
+  const [animarModal, setAnimarModal] = useState(false);
 
   const handleNuevoGasto = (e) => {
-    e.preventDefault();
     setModal(true)
+
+    setTimeout(() => {
+ 
+      setAnimarModal(true)
+    }, 500);
   }
 
       //validad si es valido el presupuesto
@@ -34,7 +39,7 @@ function App() {
     </div>
     ) }
      
-     {modal && <Modal setModal ={setModal}/>}
+     {modal && <Modal setModal ={setModal} animarModal ={animarModal} setAnimarModal ={setAnimarModal}/>}
     </div>
   )
 }
