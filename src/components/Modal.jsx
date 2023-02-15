@@ -1,15 +1,30 @@
 import CerrarModalBtn from '../img/cerrar.svg'
 import { useState } from 'react'
-const Modal = ({setModal, animarModal, setAnimarModal}) => {
+import Mensaje from './Mensaje'
+const Modal = ({setModal, animarModal, setAnimarModal, guardarGasto}) => {
 
+  const [mensajeValidacion, setMensajeValidacion] = useState('')
   const [nombre, setNombre] = useState('');
-  const [cantidad, setCantidad] = useState(0);
+  const [cantidad, setCantidad] = useState('');
   const [categoria, setCategoria] = useState('');
+  // Cerrar el modal - funcion
     const handleCerrarModal = () => {
         setAnimarModal(false)
         setTimeout(() => {
             setModal(false)
           }, 500);
+    }
+
+    const handleAgregarGasto = (e) => {
+      e.preventDefault()
+      if([nombre, cantidad, categoria].includes('') || [nombre, cantidad, categoria].includes(' ')) {
+        setMensajeValidacion('Todos los campos son obligatorios')
+        setTimeout(() => {
+          setMensajeValidacion('')
+        }, 2000)
+        return
+      }
+      guardarGasto({nombre, cantidad, categoria})
     }
 
 
@@ -18,11 +33,14 @@ const Modal = ({setModal, animarModal, setAnimarModal}) => {
         <div className='cerrar-modal'>
         <img  src={CerrarModalBtn} alt="Cerrar modal" onClick={handleCerrarModal}/>
         </div>
-        <form className={`formulario ${animarModal ? "animar" : 'cerrar'}`}>
-            <legend>Gasto</legend>
+        <form className={`formulario ${animarModal ? "animar" : 'cerrar'}`}
+        onSubmit={handleAgregarGasto}>
+
+            <legend>Nuevo Gasto</legend>
+            {mensajeValidacion && <Mensaje tipo='error'>{mensajeValidacion}</Mensaje>}
             <div className="campo">
               <label htmlFor="nombre">Nombre gasto</label>
-              <input type="text" id='nombre' placeholder='Ingrese nombrer del gasto' 
+              <input type="text" id='nombre' placeholder='Ingrese nombre del gasto' 
               value={nombre} onChange={e => setNombre(e.target.value)}/>
             </div>
 
