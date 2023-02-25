@@ -29,7 +29,7 @@ const Modal = ({setModal, animarModal, setAnimarModal, guardarGasto}) => {
 
 
   return (
-    <div className="modal">
+    <div className="modal"> 
         <div className='cerrar-modal'>
         <img  src={CerrarModalBtn} alt="Cerrar modal" onClick={handleCerrarModal}/>
         </div>
