@@ -42,7 +42,7 @@ function App() {
       const [isvalidPresupuesto, setIsvalidPresupuesto] = useState(false);
 
   return (
-    <div>
+    <div className={modal? 'fijar' : ''}>
     <Header
     presupuesto = {presupuesto}
     setPresupuesto = {setPresupuesto}
